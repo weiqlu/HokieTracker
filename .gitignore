@@ -1,2 +1,12 @@
 .env
 venv
+venv/lib
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+node_modules
+dist
