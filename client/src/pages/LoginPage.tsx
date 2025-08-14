@@ -14,7 +14,7 @@ function LoginPage() {
           <h1 className="app-title">HOKIETRACKER</h1>
           <p>
             Get notified the moment seats open in your Virginia Tech courses.
-            Stop refreshing the timetable - we'll watch it for you.
+            Stop refreshing the timetable - we'll watch it for you
           </p>
           <p className="timetable-reference">
             Refer to the{" "}
@@ -26,7 +26,7 @@ function LoginPage() {
             >
               Timetable of Classes
             </a>{" "}
-            for official course listings.
+            for official course listings
           </p>
           <div className="features">
             <div className="feature">
