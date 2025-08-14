@@ -2,8 +2,8 @@ import sys
 import time
 import requests
 
-BASE = "https://apps.es.vt.edu/ssb/HZSKVTSC.P_ProcRequest"
-NO_SECTIONS_TEXT = "NO SECTIONS FOUND FOR THIS INQUIRY."
+BASE = "https://selfservice.banner.vt.edu/ssb/HZSKVTSC.P_ProcRequest"
+NO_SECTIONS = "NO SECTIONS FOUND FOR THIS INQUIRY."
 
 SEM_CODES = {"SPRING": "01", "SUMMER": "06", "FALL": "09", "WINTER": "12"}
 
@@ -38,7 +38,8 @@ def add_class(major: str, course_number: str, crns, year: int, semester: str,
     queries.append(query)
 
 
-add_class("MATH", "1026", ["91234"], year=2025, semester="FALL")
+# add_class("MATH", "1026", ["91234"], year=2025, semester="FALL")
+add_class("CS", "3724", ["83561"], year=2025, semester="FALL")
 
 while True:
     for query in queries:
@@ -50,7 +51,7 @@ while True:
             continue
 
         # check if sections found
-        if NO_SECTIONS_TEXT not in txt:
+        if NO_SECTIONS not in txt:
             cut_off = txt.find("<b class=blue_msg>(Optional)</b>")
             sliced = txt[cut_off:] if cut_off != -1 else txt
 
@@ -68,4 +69,4 @@ while True:
             for crn in query["crnFilter"]:
                 print(f"{query['request']['subj_code']} {query['request']['CRSE_NUMBER']}, CRN: {crn} - False (No sections found)")
 
-    time.sleep(0.5)
+    time.sleep(1)
