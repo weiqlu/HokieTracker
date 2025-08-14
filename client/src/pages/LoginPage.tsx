@@ -11,7 +11,7 @@ function LoginPage() {
       <div className="login-modal">
         {/* app introduction */}
         <div className="app-info">
-          <h1>HokieTracker - Never Miss Your Class Again</h1>
+          <h1 className="app-title">HOKIETRACKER</h1>
           <p>
             Get notified the moment seats open in your Virginia Tech courses.
             Stop refreshing the timetable - we'll watch it for you.
