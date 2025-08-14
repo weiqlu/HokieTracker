@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
   /* find a font family */
+  font-family: "Inter", "Segoe UI", "Roboto", -apple-system, BlinkMacSystemFont,
+    sans-serif;
 }
 
 body {
