@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import os
 import sys
 
@@ -8,8 +9,17 @@ sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
 from service.course_tracker_svc import CourseTrackerSvc
+from model.course_tracker_dto import SignUpRequest
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 repo = CourseTrackerRepo()
 svc = CourseTrackerSvc(repo=repo)
@@ -19,6 +29,6 @@ svc = CourseTrackerSvc(repo=repo)
 #####################################################################
 
 @app.post("/signup")
-async def create_user(email: str, password: str):
-    user = svc.signup_user(email=email, password=password)
+async def create_user(signup_request: SignUpRequest):
+    user = svc.signup_user(email=signup_request.email, password=signup_request.password)
     return user
