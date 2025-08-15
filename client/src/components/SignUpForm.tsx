@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; 
 
 interface SignUpFormProps {
   onSwitchToLogin: () => void;
@@ -15,8 +16,24 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
       alert("Passwords don't match!");
       return;
     }
-    // sign up logic here
-    console.log("Sign up:", { email, password });
+    
+    axios.post("http://localhost:8000/signup", {
+      email, 
+      password
+    })
+    .then (function(response) {
+      // clear the form if signup is successful
+      console.log("Signup successful", response.data); 
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      onSwitchToLogin();
+    })
+    .catch (function(error) {
+      console.log("Signup failed", error) 
+      alert("Signup failed. Please try again.");
+    })
+    // need to add cases for existing emails, etc. 
   };
 
   return (
