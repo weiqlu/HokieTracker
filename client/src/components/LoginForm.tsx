@@ -30,7 +30,8 @@ function LoginForm({ onSwitchToSignUp, onLogin }: LoginFormProps) {
       })
       .catch((error) => {
         console.log("Login failed", error);
-        alert("Login failed. Please check your credentials and try again.");
+        const errorMessage = error.response?.data?.detail;
+        alert(errorMessage);
       });
   };
 

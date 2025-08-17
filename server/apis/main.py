@@ -31,14 +31,17 @@ svc = CourseTrackerSvc(repo=repo)
 @app.post("/signup")
 async def create_user(signup_request: SignUpRequest):
     user = svc.signup_user(email=signup_request.email, password=signup_request.password)
+
+    # existing user (email already exists)
+    if isinstance(user, dict) and "error" in user: 
+        raise HTTPException(status_code=400, detail=user["error"])
     return user
 
 @app.post("/login")
 async def login_user(login_request: LoginRequest):
-    try:
-        user = svc.login_user(email=login_request.email, password=login_request.password)
-        return user
-    except Exception as e:
-        print(f"Login error: {str(e)}")  # This will show in your server logs
-        raise HTTPException(status_code=400, detail=f"Login failed: {str(e)}")
-
+    user = svc.login_user(email=login_request.email, password=login_request.password)
+    
+    # incorrect password
+    if isinstance(user, dict) and "error" in user:
+        raise HTTPException(status_code=401, detail=user["error"])
+    return user

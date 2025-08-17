@@ -31,7 +31,7 @@ class CourseTrackerSvc:
 
         # verify user exists
         if not user:
-            return {"error": "Invalid email or password"}
+            return {"error": "Invalid email or password. Please try again."}
 
         # verify password 
         if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
@@ -41,6 +41,6 @@ class CourseTrackerSvc:
                 created_at=user.created_at
             )
         else: 
-            return {"error": "Invalid password."}
+            return {"error": "Invalid password. Please try again."}
 
         

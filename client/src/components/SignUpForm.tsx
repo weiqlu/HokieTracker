@@ -27,7 +27,7 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
       
       // success message
       alert(response.data.message || "Account created successfully!");
-      
+
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -35,7 +35,8 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
     })
     .catch(error => {
       console.log("Signup failed", error) 
-      alert("Signup failed. Please try again.");
+      const errorMessage = error.response?.data?.detail
+      alert(errorMessage);
     })
     // need to add cases for existing emails, etc. 
   };
