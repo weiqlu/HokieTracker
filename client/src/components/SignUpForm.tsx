@@ -21,7 +21,7 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
       email, 
       password
     })
-    .then (function(response) {
+    .then(response => {
       // clear the form if signup is successful
       console.log("Signup successful", response.data); 
       setEmail("");
@@ -29,7 +29,7 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
       setConfirmPassword("");
       onSwitchToLogin();
     })
-    .catch (function(error) {
+    .catch(error => {
       console.log("Signup failed", error) 
       alert("Signup failed. Please try again.");
     })

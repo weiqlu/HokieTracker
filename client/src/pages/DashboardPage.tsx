@@ -1,7 +1,18 @@
-function DashboardPage() { 
+interface UserData {
+    id: string;
+    email: string;
+}
+
+interface DashboardPageProps {
+    user: UserData | null;
+    onLogout: () => void;
+}
+
+function DashboardPage({ user, onLogout }: DashboardPageProps) { 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1>{user?.email}</h1>
+            <button onClick={onLogout}>Logout</button>
         </div>
     );
 }

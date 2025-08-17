@@ -3,7 +3,11 @@ import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import "../styles/LoginPage.css";
 
-function LoginPage() {
+interface LoginPageProps {
+  onLogin: (userData: any) => void;
+}
+
+function LoginPage( {onLogin}: LoginPageProps) {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
@@ -48,7 +52,7 @@ function LoginPage() {
         {isSignUp ? (
           <SignUpForm onSwitchToLogin={() => setIsSignUp(false)} />
         ) : (
-          <LoginForm onSwitchToSignUp={() => setIsSignUp(true)} />
+          <LoginForm onSwitchToSignUp={() => setIsSignUp(true)} onLogin={onLogin} />
         )}
       </div>
     </div>

@@ -1,16 +1,38 @@
+import axios from "axios";
 import React, { useState } from "react";
+
+interface UserData {
+  id: string;
+  email: string;
+}
 
 interface LoginFormProps {
   onSwitchToSignUp: () => void;
+  onLogin: (userData: UserData) => void;
 }
 
-function LoginForm({ onSwitchToSignUp }: LoginFormProps) {
+function LoginForm({ onSwitchToSignUp, onLogin }: LoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // login logic here
+
+    axios
+      .post("http://localhost:8000/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        const userData: UserData = response.data;
+        console.log("Login successful", userData);
+        onLogin(userData);
+      })
+      .catch((error) => {
+        console.log("Login failed", error);
+        alert("Login failed. Please check your credentials and try again.");
+      });
+
     console.log("Login:", { email, password });
   };
 
