@@ -24,3 +24,18 @@ class CourseTrackerSvc:
 
         user = self.repo.create_user(email=email, password=hashed_password.decode('utf-8'))
         return user
+
+    def login_user(self, email: str, password: str): 
+        user = self.repo.get_user_by_email(email=email)
+
+        # verify user exists
+        if not user:
+            return {"error": "Invalid email or password"}
+
+        # verify password 
+        if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            return user
+        else: 
+            return {"error": "Invalid password."}
+
+        
