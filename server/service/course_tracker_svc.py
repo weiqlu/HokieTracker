@@ -7,6 +7,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
+from model.course_tracker_dto import UserResponse
 
 class CourseTrackerSvc: 
     def __init__(self, repo: CourseTrackerRepo):
@@ -23,7 +24,7 @@ class CourseTrackerSvc:
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
 
         user = self.repo.create_user(email=email, password=hashed_password.decode('utf-8'))
-        return user
+        return {"message": "Account created successfully."}
 
     def login_user(self, email: str, password: str): 
         user = self.repo.get_user_by_email(email=email)
@@ -34,7 +35,11 @@ class CourseTrackerSvc:
 
         # verify password 
         if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-            return user
+            return UserResponse(
+                id=user.id,
+                email=user.email,
+                created_at=user.created_at
+            )
         else: 
             return {"error": "Invalid password."}
 

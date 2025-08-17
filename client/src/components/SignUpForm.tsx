@@ -23,7 +23,11 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
     })
     .then(response => {
       // clear the form if signup is successful
-      console.log("Signup successful", response.data); 
+      console.log("Signup successful", response.data);
+      
+      // success message
+      alert(response.data.message || "Account created successfully!");
+      
       setEmail("");
       setPassword("");
       setConfirmPassword("");

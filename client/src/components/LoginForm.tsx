@@ -32,8 +32,6 @@ function LoginForm({ onSwitchToSignUp, onLogin }: LoginFormProps) {
         console.log("Login failed", error);
         alert("Login failed. Please check your credentials and try again.");
       });
-
-    console.log("Login:", { email, password });
   };
 
   return (
