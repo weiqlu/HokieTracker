@@ -14,6 +14,12 @@ class LoginRequest(BaseModel):
 # Response DTO 
 ######################################################
 
+class ErrorResponse(BaseModel): 
+    error: str
+
+class SuccessResponse(BaseModel): 
+    message: str
+
 class UserResponse(BaseModel): 
     id: int 
     email: str
