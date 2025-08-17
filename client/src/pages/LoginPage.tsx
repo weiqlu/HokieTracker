@@ -7,7 +7,7 @@ interface LoginPageProps {
   onLogin: (userData: any) => void;
 }
 
-function LoginPage( {onLogin}: LoginPageProps) {
+function LoginPage({ onLogin }: LoginPageProps) {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
@@ -52,7 +52,10 @@ function LoginPage( {onLogin}: LoginPageProps) {
         {isSignUp ? (
           <SignUpForm onSwitchToLogin={() => setIsSignUp(false)} />
         ) : (
-          <LoginForm onSwitchToSignUp={() => setIsSignUp(true)} onLogin={onLogin} />
+          <LoginForm
+            onSwitchToSignUp={() => setIsSignUp(true)}
+            onLogin={onLogin}
+          />
         )}
       </div>
     </div>

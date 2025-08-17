@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"; 
+import axios from "axios";
 
 interface SignUpFormProps {
   onSwitchToLogin: () => void;
@@ -16,29 +16,28 @@ function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
       alert("Passwords don't match!");
       return;
     }
-    
-    axios.post("http://localhost:8000/signup", {
-      email, 
-      password
-    })
-    .then(response => {
-      // clear the form if signup is successful
-      console.log("Signup successful", response.data);
-      
-      // success message
-      alert(response.data.message || "Account created successfully!");
 
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      onSwitchToLogin();
-    })
-    .catch(error => {
-      console.log("Signup failed", error) 
-      const errorMessage = error.response?.data?.detail
-      alert(errorMessage);
-    })
-    // need to add cases for existing emails, etc. 
+    axios
+      .post("http://localhost:8000/signup", {
+        email,
+        password,
+      })
+      .then((response) => {
+        // success message
+        alert(response.data.message);
+
+        // clear the form if signup is successful
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        onSwitchToLogin();
+      })
+      .catch((error) => {
+        console.log("Signup failed", error);
+        const errorMessage = error.response?.data?.detail;
+        alert(errorMessage);
+      });
+    // need to add cases for existing emails, etc.
   };
 
   return (
