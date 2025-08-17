@@ -1,7 +1,4 @@
-interface UserData {
-    id: string;
-    email: string;
-}
+import type { UserData } from "../types/Interface";
 
 interface DashboardPageProps {
     user: UserData | null;

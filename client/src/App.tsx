@@ -1,11 +1,7 @@
 import { useState } from "react"
 import LoginPage from "./pages/LoginPage";
 import DashBoardPage from "./pages/DashboardPage";
-
-interface UserData { 
-  id: string;
-  email: string
-}
+import type { UserData } from "./types/Interface";
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false)

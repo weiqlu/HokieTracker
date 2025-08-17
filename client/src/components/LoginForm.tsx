@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-
-interface UserData {
-  id: string;
-  email: string;
-}
+import type { UserData } from "../types/Interface";
 
 interface LoginFormProps {
   onSwitchToSignUp: () => void;
