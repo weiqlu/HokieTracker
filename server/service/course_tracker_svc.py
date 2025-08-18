@@ -7,7 +7,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
-from model.course_tracker_dto import UserResponse, ErrorResponse, SuccessResponse
+from model.course_tracker_dto import UserResponse, ErrorResponse, SuccessResponse, GetSectionResponse
 
 class CourseTrackerSvc: 
     def __init__(self, repo: CourseTrackerRepo):
@@ -44,7 +44,6 @@ class CourseTrackerSvc:
             return ErrorResponse(error="Invalid password. Please try again.")
 
     def add_section(self, user_id: int, subject_code: str, course_number: str, crn: str, year: int, semester: str):
-        
         # check for duplicate sections for each user
 
         section = self.repo.create_tracked_section(
@@ -56,3 +55,7 @@ class CourseTrackerSvc:
             semester=semester
         )
         return SuccessResponse(message="Section added successfully.")
+    
+    def get_section(self, user_id: int): 
+        return self.repo.get_tracked_sections(user_id=user_id)
+

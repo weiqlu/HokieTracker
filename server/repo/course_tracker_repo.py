@@ -70,7 +70,7 @@ class CourseTrackerRepo():
         self.db.refresh(section)
         return section
     
-    def get_user_tracked_sections(self, user_id: int) -> List[TrackedSections]:
+    def get_tracked_sections(self, user_id: int) -> List[TrackedSections]:
         return self.db.query(TrackedSections).filter(TrackedSections.user_id == user_id).all()
     
     def delete_tracked_section(self, section_id: int) -> bool:

@@ -60,3 +60,8 @@ async def add_section(section_request: AddSectionRequest):
     if isinstance(result, ErrorResponse):
         raise HTTPException(status_code=400, detail=result.error)
     return result
+
+@app.get("/sections/{user_id}")
+async def get_sections(user_id: int):
+    sections = svc.get_section(user_id=user_id)
+    return sections  
