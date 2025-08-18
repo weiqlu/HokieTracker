@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -19,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   width: 85%;
-  max-width: 420px;
+  max-width: 600px;
   margin-bottom: 2rem;
 }
 
@@ -47,11 +48,13 @@
 
 .logout-button:hover {
   color: #cccccc;
+  text-decoration: underline;
 }
 
 .dashboard-content {
   width: 85%;
-  max-width: 420px;
+  max-width: 600px;
+  height: 70vh;
   background-color: black;
   border: 2px solid #333;
   border-radius: 12px;
@@ -60,6 +63,10 @@
     0 0 100px rgba(255, 255, 255, 0.15), 0 0 150px rgba(255, 255, 255, 0.08);
   color: white;
   text-align: center;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-content h2 {
@@ -68,4 +75,285 @@
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.3px;
+  flex-shrink: 0;
+}
+
+.open-modal-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  letter-spacing: 0.2px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+.open-modal-button:hover {
+  background-color: #e0e0e0;
+}
+
+.courses-table-container {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #333;
+  border-radius: 6px;
+  scroll-behavior: smooth;
+}
+
+.courses-table-container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* hides scrollbar */
+.courses-table-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.courses-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.courses-table th {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 2px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.courses-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #333;
+  vertical-align: middle;
+}
+
+.course-info {
+  text-align: left;
+}
+
+.course-number {
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.course-name {
+  font-size: 12px;
+  color: #ccc;
+  font-weight: 400;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.available {
+  background-color: #2d5016;
+  color: #7dd3fc;
+}
+
+.status-badge.unavailable {
+  background-color: #5c1a1a;
+  color: #f87171;
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-btn {
+  background-color: #333;
+  border: 1px solid #555;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #444;
+  border-color: #666;
+}
+
+.play-btn:hover {
+  background-color: #2d5016;
+  border-color: #4ade80;
+  color: #4ade80;
+}
+
+.pause-btn:hover {
+  background-color: #5c2d00;
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.delete-btn:hover {
+  background-color: #5c1a1a;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: black;
+  border: 2px solid #333;
+  border-radius: 12px;
+  width: 85%;
+  max-width: 420px;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.2),
+    0 0 100px rgba(255, 255, 255, 0.15), 0 0 150px rgba(255, 255, 255, 0.08);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.modal-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.close-button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  color: #cccccc;
+}
+
+.modal-form {
+  padding: 20px 40px 30px;
+}
+
+.modal-input,
+.modal-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.modal-input:focus,
+.modal-textarea:focus {
+  outline: none;
+  border-color: #555;
+  background-color: #333;
+}
+
+.modal-input::placeholder,
+.modal-textarea::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.modal-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.submit-button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.cancel-button {
+  background-color: #333;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #444;
+}
+
+.submit-button {
+  background-color: white;
+  color: black;
+}
+
+.submit-button:hover {
+  background-color: #e0e0e0;
 }
