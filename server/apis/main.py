@@ -9,7 +9,7 @@ sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
 from service.course_tracker_svc import CourseTrackerSvc
-from model.course_tracker_dto import SignUpRequest, LoginRequest, ErrorResponse, SuccessResponse
+from model.course_tracker_dto import SignUpRequest, LoginRequest, AddSectionRequest, ErrorResponse
 
 app = FastAPI()
 
@@ -45,3 +45,18 @@ async def login_user(login_request: LoginRequest):
     if isinstance(user, ErrorResponse):
         raise HTTPException(status_code=401, detail=user.error)
     return user
+
+@app.post("/add_section")
+async def add_section(section_request: AddSectionRequest):
+    result = svc.add_section(
+        user_id=section_request.user_id,
+        subject_code=section_request.subject_code,
+        course_number=section_request.course_number,
+        crn=section_request.crn,
+        year=section_request.year,
+        semester=section_request.semester
+    )
+
+    if isinstance(result, ErrorResponse):
+        raise HTTPException(status_code=400, detail=result.error)
+    return result

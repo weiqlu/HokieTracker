@@ -10,6 +10,14 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+class AddSectionRequest(BaseModel):
+    user_id: int
+    subject_code: str
+    course_number: str
+    crn: str
+    year: int
+    semester: str
+
 ######################################################
 # Response DTO 
 ######################################################

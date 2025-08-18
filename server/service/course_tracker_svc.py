@@ -43,4 +43,16 @@ class CourseTrackerSvc:
         else: 
             return ErrorResponse(error="Invalid password. Please try again.")
 
+    def add_section(self, user_id: int, subject_code: str, course_number: str, crn: str, year: int, semester: str):
         
+        # check for duplicate sections for each user
+
+        section = self.repo.create_tracked_section(
+            user_id=user_id,
+            subject_code=subject_code,
+            course_number=course_number,
+            crn=crn,
+            year=year,
+            semester=semester
+        )
+        return SuccessResponse(message="Section added successfully.")

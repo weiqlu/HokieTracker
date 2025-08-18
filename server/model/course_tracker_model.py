@@ -7,7 +7,7 @@ class TrackedSections(Base):
     __tablename__ = "trackedsections"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey('Users.id', ondelete='CASCADE'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     subject_code = Column(String(10), nullable=False)
     course_number = Column(String(10), nullable=False)
     crn = Column(String(10), nullable=False)

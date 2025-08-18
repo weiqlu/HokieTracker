@@ -53,7 +53,7 @@ class CourseTrackerRepo():
     ############################################################
 
     def create_tracked_section(self, user_id: int, subject_code: str, course_number: str, 
-                             crn: str, year: int, semester: str, campus: str = "0") -> TrackedSections:
+                             crn: str, year: int, semester: str) -> TrackedSections:
         section = TrackedSections(
             user_id=user_id,
             subject_code=subject_code,
@@ -61,7 +61,9 @@ class CourseTrackerRepo():
             crn=crn,
             year=year,
             semester=semester,
-            campus=campus
+            # campus defaults to 0 (blacksburg)
+            # is_available defaults to false
+            # notifications_enabled defaults to true
         )
         self.db.add(section)
         self.db.commit()
