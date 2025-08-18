@@ -52,7 +52,7 @@ function DashboardPage({ user, onLogout }: DashboardPageProps) {
       const transformedCourses = sections.map((section: any) => ({
         id: section.id,
         courseNumber: `${section.subject_code} ${section.course_number}`,
-        courseName: "Course Name", // temporary for now, need to get the full name
+        // courseName: "Course Name", // temporary for now, need to get the full name
         status: section.is_available ? "available" : "unavailable",
         trackingStatus: section.notifications_enabled ? "tracking" : "paused",
         crn: section.crn,
@@ -212,7 +212,7 @@ function DashboardPage({ user, onLogout }: DashboardPageProps) {
                   <tr key={course.id}>
                     <td className="course-info">
                       <div className="course-number">{course.courseNumber}</div>
-                      <div className="course-name">{course.courseName}</div>
+                      {/* <div className="course-name">{course.courseName}</div> */}
                     </td>
                     <td>{course.crn}</td>
                     <td>
