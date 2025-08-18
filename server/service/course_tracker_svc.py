@@ -7,7 +7,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
-from model.course_tracker_dto import UserResponse, ErrorResponse, SuccessResponse, GetSectionResponse
+from model.course_tracker_dto import UserResponse, ErrorResponse, SuccessResponse
 
 class CourseTrackerSvc: 
     def __init__(self, repo: CourseTrackerRepo):
@@ -58,4 +58,9 @@ class CourseTrackerSvc:
     
     def get_section(self, user_id: int): 
         return self.repo.get_tracked_sections(user_id=user_id)
-
+    
+    def delete_section(self, section_id: int):
+        result = self.repo.delete_tracked_section(section_id=section_id)
+        if result:
+            return SuccessResponse(message="Section deleted successfully.")
+        return ErrorResponse(error="Section not found.")

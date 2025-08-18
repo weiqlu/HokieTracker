@@ -64,4 +64,11 @@ async def add_section(section_request: AddSectionRequest):
 @app.get("/sections/{user_id}")
 async def get_sections(user_id: int):
     sections = svc.get_section(user_id=user_id)
-    return sections  
+    return sections 
+
+@app.delete("/sections/{section_id}")
+async def delete_section(section_id: int):
+    result = svc.delete_section(section_id=section_id)
+    if isinstance(result, ErrorResponse):
+        raise HTTPException(status_code=404, detail=result.error)
+    return result
