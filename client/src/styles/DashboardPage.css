@@ -106,6 +106,7 @@
   border: 1px solid #333;
   border-radius: 6px;
   scroll-behavior: smooth;
+  min-width: 100%;
 }
 
 .courses-table-container::-webkit-scrollbar {
@@ -356,4 +357,103 @@
 
 .submit-button:hover {
   background-color: #e0e0e0;
+}
+
+/* mobile optimizations */
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+
+  .dashboard-header {
+    width: 95%;
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-title {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .dashboard-content {
+    width: 95%;
+    padding: 20px;
+    height: 75vh;
+  }
+
+  .dashboard-content h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .open-modal-button {
+    padding: 10px 20px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .courses-table {
+    font-size: 12px;
+  }
+
+  .courses-table th {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .courses-table td {
+    padding: 12px 6px;
+  }
+
+  .course-number {
+    font-size: 13px;
+  }
+
+  .course-name {
+    font-size: 11px;
+  }
+
+  .status-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    gap: 6px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: 10px;
+  }
+
+  .modal-header {
+    padding: 20px 20px 15px;
+  }
+
+  .modal-header h3 {
+    font-size: 18px;
+  }
+
+  .modal-form {
+    padding: 15px 20px 20px;
+  }
+
+  .modal-input {
+    padding: 12px;
+    font-size: 16px; 
+  }
+
+  .close-button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
 }

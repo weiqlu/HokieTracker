@@ -8,7 +8,7 @@ interface Course {
   courseNumber: string;
   courseName: string;
   status: "available" | "unavailable";
-  trackingStatus: "tracking" | "paused" | "stopped";
+  trackingStatus: "tracking" | "paused";
   crn: string;
   year: number;
   semester: string;
@@ -240,7 +240,7 @@ function DashboardPage({ user, onLogout }: DashboardPageProps) {
                             title="Start tracking"
                           >
                             ▶
-                          </button>
+                          </button> 
                         )}
                         <button
                           className="action-btn delete-btn"
@@ -290,13 +290,14 @@ function DashboardPage({ user, onLogout }: DashboardPageProps) {
                   value={formData.course_number}
                   onChange={handleInputChange}
                   required
+                  maxLength={4}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   name="crn"
-                  placeholder="CRN (5-digit number)"
+                  placeholder="CRN (e.g, 99831)"
                   className="modal-input"
                   value={formData.crn}
                   onChange={handleInputChange}
