@@ -4,17 +4,17 @@ import DashBoardPage from "./pages/DashboardPage";
 import type { UserData } from "./types/Interface";
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);
 
   const handleLogin = (userData: UserData) => {
     setUser(userData);
-    setisLoggedIn(true);
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     setUser(null);
-    setisLoggedIn(false);
+    setIsLoggedIn(false);
   };
 
   return (

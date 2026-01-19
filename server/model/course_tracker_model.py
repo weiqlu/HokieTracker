@@ -4,7 +4,7 @@ from sqlalchemy.orm import declarative_base
 Base = declarative_base() 
 
 class TrackedSections(Base): 
-    __tablename__ = "trackedsections"
+    __tablename__ = "tracked_sections"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
