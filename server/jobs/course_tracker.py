@@ -1,72 +1,64 @@
-import sys
-import time
 import requests
+from sqlalchemy.orm import Session
+from repo.course_tracker_repo import SessionLocal
+from model.course_tracker_model import TrackedSections
 
 BASE = "https://selfservice.banner.vt.edu/ssb/HZSKVTSC.P_ProcRequest"
 NO_SECTIONS = "NO SECTIONS FOUND FOR THIS INQUIRY."
-
 SEM_CODES = {"SPRING": "01", "SUMMER": "06", "FALL": "09", "WINTER": "12"}
 
 def term_code(year: int, semester: str) -> str:
     sem = semester.upper()
     y = year - 1 if sem == "WINTER" else year
-    print(f"{y}{SEM_CODES[sem]}")
-    return f"{y}{SEM_CODES[sem]}"
+    return f"{y}{SEM_CODES.get(sem, '09')}"
 
-queries = []
-
-def add_class(major: str, course_number: str, crns, year: int, semester: str,
-              campus: str = "0", core_code: str = "AR%"):
-    tc = term_code(year, semester)
-    query = {
-        "request": {
-            "CAMPUS": campus,
-            "TERMYEAR": tc,
-            "CORE_CODE": core_code,
-            "subj_code": major,
-            "SCHDTYPE": "%",
-            "CRSE_NUMBER": course_number,
-            "crn": "",
-            "open_only": "on",
-            "disp_comments_in": "Y",
-            "sess_code": "%",
-            "BTN_PRESSED": "FIND+class+sections",
-            "inst_name": ""
-        },
-        "crnFilter": list(crns),
+def check_and_update_section(db: Session, section: TrackedSections) -> bool:
+    """
+    checks a single section against vt. 
+    updates the db state immediately if changed.
+    returns true if open, false if closed.
+    """
+    tc = term_code(section.year, section.semester)
+    
+    payload = {
+        "CAMPUS": str(section.campus) if section.campus else "0",
+        "TERMYEAR": tc,
+        "CORE_CODE": "AR%",
+        "subj_code": section.subject_code,
+        "SCHDTYPE": "%",
+        "CRSE_NUMBER": section.course_number,
+        "crn": "", 
+        "open_only": "on", 
+        "disp_comments_in": "Y",
+        "sess_code": "%",
+        "BTN_PRESSED": "FIND+class+sections",
+        "inst_name": ""
     }
-    queries.append(query)
 
-
-# add_class("MATH", "1026", ["91234"], year=2025, semester="FALL")
-add_class("CS", "3724", ["83561"], year=2025, semester="FALL")
-
-while True:
-    for query in queries:
-        try:
-            r = requests.post(BASE, data=query["request"])
-            txt = r.text
-        except:
-            print("Connection error occurred, continuing.")
-            continue
-
-        # check if sections found
+    try:
+        r = requests.post(BASE, data=payload, timeout=5)
+        txt = r.text
+        
+        is_open = False
         if NO_SECTIONS not in txt:
-            cut_off = txt.find("<b class=blue_msg>(Optional)</b>")
-            sliced = txt[cut_off:] if cut_off != -1 else txt
-
-            found_any = False
-            for crn in query["crnFilter"]:
-                if crn in sliced:
-                    print(f"{query['request']['subj_code']} {query['request']['CRSE_NUMBER']}, CRN: {crn} - True")
-                    found_any = True
+            if section.crn in txt:
+                is_open = True
+        
+        # check for state change
+        if is_open != section.is_available:
+            section.is_available = is_open
             
-            if not found_any:
-                for crn in query["crnFilter"]:
-                    print(f"{query['request']['subj_code']} {query['request']['CRSE_NUMBER']}, CRN: {crn} - False")
-        else:
-            # no sections found at all
-            for crn in query["crnFilter"]:
-                print(f"{query['request']['subj_code']} {query['request']['CRSE_NUMBER']}, CRN: {crn} - False (No sections found)")
+            if is_open:
+                print(f"UPDATE: {section.crn} is now open!")
+                # todo: trigger notification here
+            
+            db.commit() 
+            db.refresh(section)
+            
+        return is_open
 
-    time.sleep(1)
+    except Exception as e:
+        print(f"Error checking {section.crn}: {e}")
+        return section.is_available 
+
+

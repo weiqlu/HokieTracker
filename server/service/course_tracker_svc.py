@@ -8,6 +8,7 @@ sys.path.append(parent_dir)
 
 from repo.course_tracker_repo import CourseTrackerRepo
 from model.course_tracker_dto import UserResponse, ErrorResponse, SuccessResponse
+from jobs.course_tracker import check_and_update_section
 
 class CourseTrackerSvc: 
     def __init__(self, repo: CourseTrackerRepo):
@@ -54,6 +55,9 @@ class CourseTrackerSvc:
             year=year,
             semester=semester
         )
+
+        check_and_update_section(self.repo.db, section)
+
         return SuccessResponse(message="Section added successfully.")
     
     def get_section(self, user_id: int): 
