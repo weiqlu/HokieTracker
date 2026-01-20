@@ -40,12 +40,12 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with: 
-          role-to-assume: 
+          role-to-assume: arn:aws:iam::319717862217:role/github-actions-hokietracker-frontend-deploy
           aws-region: us-east-1
 
       - name: Deploy to S3
-        run:
+        run: aws s3 sync dist/ s3://hokietracker.dev --delete
 
       - name: Invalidate Cloudfront
-        run: 
+        run: aws cloudfront create-invalidation --distribution-id EAAACTR2CP4V7 --paths "/*"
       
